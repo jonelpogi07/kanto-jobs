@@ -28,3 +28,8 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+<!-- AGENT-MEMORY:BEGIN -->
+- Keep the interactive prototype in a client-side demo workspace with pure wallet and plan rules in a shared module; this permits realistic flows without implying real payments or authentication.
+- Use manifest-only installability with no app-shell service worker; home-screen support must not stale-cache previews.
+<!-- AGENT-MEMORY:END -->

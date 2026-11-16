@@ -1,23 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
-
-// The home route ships no og:image, so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
+import { KantoApp } from "@/components/kanto-app";
 export const Route = createFileRoute("/")({
-  component: Index,
+ head: () => ({ meta: [
+  { title: "KantoJobs — Your barangay, your next gig" },
+  { name: "description", content: "Find local side hustles, offer a helping hand and discover trusted neighbors in your Philippine barangay." },
+  { property: "og:title", content: "KantoJobs — Your next side hustle is around the kanto" },
+  { property: "og:description", content: "Local people, fair pay, and community-powered micro-jobs. Explore the KantoJobs interactive demo." },
+  { property: "og:type", content: "website" },
+  { name: "twitter:card", content: "summary_large_image" },
+ ] }),
+ component: KantoApp,
 });
-
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
-function Index() {
-  return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
-  );
-}
