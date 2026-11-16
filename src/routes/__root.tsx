@@ -8,7 +8,9 @@ import {
   Scripts,
   type ErrorComponentProps,
 } from "@tanstack/react-router";
-import { useEffect, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
+import { supabase } from '@/integrations/supabase/client';
+import { AccountProvider, type AccountState } from '@/components/account-context';
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
@@ -123,11 +125,35 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const router = useRouter();
+  const [account, setAccount] = useState<AccountState>({ user: null, loading: true });
+  useEffect(() => {
+    let active = true;
+    let version = 0;
+    if (new URLSearchParams(window.location.hash.slice(1)).get('type') === 'recovery') sessionStorage.setItem('kanto-recovery', 'true');
+    const refresh = async () => {
+      const request = ++version;
+      const { data, error } = await supabase.auth.getUser();
+      if (active && request === version) setAccount({ user: error ? null : data.user, loading: false });
+    };
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event) => {
+      if (event === 'PASSWORD_RECOVERY') sessionStorage.setItem('kanto-recovery', 'true');
+      if (!['SIGNED_IN', 'SIGNED_OUT', 'USER_UPDATED', 'PASSWORD_RECOVERY'].includes(event)) return;
+      if (event === 'SIGNED_OUT') { ++version; setAccount({ user: null, loading: false }); }
+      else setTimeout(() => { if (active) void refresh(); }, 0);
+      void router.invalidate();
+      if (event !== 'SIGNED_OUT') void queryClient.invalidateQueries();
+    });
+    void refresh();
+    return () => { active = false; subscription.unsubscribe(); };
+  }, [queryClient, router]);
 
   return (
     <QueryClientProvider client={queryClient}>
+      <AccountProvider value={account}>
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Outlet />
+      </AccountProvider>
     </QueryClientProvider>
   );
 }

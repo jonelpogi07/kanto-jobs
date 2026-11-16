@@ -4,3 +4,9 @@
 - [x] Add wallet top-ups, withdrawals, subscription limits and profile role switching.
 - [x] Add welcome/demo entry, safety reporting and home-screen manifest.
 - [x] Verify financial rules and mobile/desktop interactions.
+- [x] Add login-only registration, login, and logout with Lovable Cloud.
+- [x] Show merchant GCash details and an Open GCash App action during cash-in.
+- [x] Submit job searches with Enter and a search button.
+- [x] Verify search, account forms, and hosted invalid-login and registration validation.
+- [ ] Verify successful registration, signed-in cash-in and logout: blocked until a user registers with a real email and confirms their account; this project has no auth users to mint a test session for.
+- [ ] Verify GCash launches on a phone: blocked until tested on a device with GCash installed.

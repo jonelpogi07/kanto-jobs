@@ -26,6 +26,7 @@
  --amber: oklch(.769 .165 70); --amber-soft: oklch(.963 .041 85); --destructive: oklch(.58 .18 28);
  --hero-foreground: oklch(1 0 0); --hero-shade: oklch(.22 .05 180 / .9);
  --overlay: oklch(.15 .02 190 / .5); --soft-shadow: 0 3px 14px oklch(.3 .02 180 / .035);
+ --google-background: #FFFFFF; --google-border: #747775; --google-text: #1F1F1F;
 }
 @layer base {
  * { border-color: var(--border); letter-spacing: 0; }
@@ -104,6 +105,7 @@
 .profile-stats strong { font-size:22px; display:block; }
 .plan-card { border:1px solid var(--border); padding:17px; border-radius:7px; display:grid; gap:9px; }
 .plan-card.current { border-color:var(--primary); background:var(--secondary); }
+.google-auth-button { background:var(--google-background); border-color:var(--google-border); color:var(--google-text); font-weight:500; }
 @media(min-width:900px) { .hero img { object-position:center 45%; } }
 @media(max-width:640px) {
  .app-shell { padding:0 18px 96px; }
