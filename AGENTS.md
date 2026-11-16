@@ -30,6 +30,8 @@ use the editor.
 <!-- LOVABLE:END -->
 
 <!-- AGENT-MEMORY:BEGIN -->
-- Keep the interactive prototype in a client-side demo workspace with pure wallet and plan rules in a shared module; this permits realistic flows without implying real payments or authentication.
+- Keep job, wallet, and plan activity in the client-side demo workspace; real Cloud Auth must not imply that demo balances or transfers are real.
+- Own the sole auth listener in the root AccountProvider, validate identity with getUser, and keep public discovery and inline sign-in actions public; login-only accounts need no profiles table.
+- Keep search matching and merchant configuration in a shared browser-safe module so submitted queries and payment details are consistently tested.
 - Use manifest-only installability with no app-shell service worker; home-screen support must not stale-cache previews.
 <!-- AGENT-MEMORY:END -->
